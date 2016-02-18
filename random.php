@@ -5,16 +5,35 @@
     <title></title>
   </head>
   <body>
-    <table border="1">
-      <?php
-        for($r=0;$r<4;$r++){
-          echo "<tr>";
-          for($c=0;$c<13;$c++){
-            echo "<td>".rand(1,52)."</td>";
+    <center>
+      <h1>RANDOM</h1>
+        <?php
+          for($i=0;$i<52;$i++){
+            $num[$i] = rand(1,52);
+            $n=0;
+            while($n < $i){
+              if($num[$i] == $num[$n]){
+                //echo "New random $i ".$num[$i];
+                $num[$i] = rand(1,52);
+                $n = 0;
+                //echo " > ".$num[$i]."<br>";
+              }
+              else{
+                $n++;
+              }
+            }
           }
-          echo "</tr>";
-        }
-      ?>
-    </table>
+          echo "<table border=\"1\">";
+            echo "<tr>";
+            for($c=1;$c<=count($num);$c++){
+              echo "<td>".$num[$c-1]."</td>";
+              if($c % 4 == 0){
+                echo "</tr><tr>";
+              }
+            }
+            echo "</tr>";
+          echo "</table>";
+        ?>
+      </center>
   </body>
 </html>
