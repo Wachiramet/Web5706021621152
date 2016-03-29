@@ -14,12 +14,54 @@
 
     <?php
     if($_POST){
-      $week = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+      $week = array(
+        "en"=>array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"),
+        "th"=>array("อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"));
       $month = array("jan"=>31,"feb"=>28,"mar"=>31,"apr"=>30,"may"=>31,"jun"=>30,"jul"=>31,"aug"=>31,"sep"=>30,"oct"=>31,"nov"=>30,"dec"=>31);
       if(date("Y")%4==0){$month["feb"] = 29;}
       $startday = ((date("Y")+((date("Y")-1)/4)+6)%7);
 
-      $inMonth = strtolower(substr($_POST["month"],0,3));
+      $language = "th";
+      if($_POST["month"]=="มกราคม"){
+        $inMonth = "jan";
+      }
+      elseif ($_POST["month"]=="กุมภาพันธ์"){
+        $inMonth = "feb";
+      }
+      elseif ($_POST["month"]=="มีนาคม"){
+        $inMonth = "mar";
+      }
+      elseif ($_POST["month"]=="เมษายน"){
+        $inMonth = "apr";
+      }
+      elseif ($_POST["month"]=="พฤษภาคม"){
+        $inMonth = "may";
+      }
+      elseif ($_POST["month"]=="มิถุนายน"){
+        $inMonth = "jun";
+      }
+      elseif ($_POST["month"]=="กรกฏาคม"){
+        $inMonth = "jul";
+      }
+      elseif ($_POST["month"]=="สิงหาคม"){
+        $inMonth = "aug";
+      }
+      elseif ($_POST["month"]=="กันยายน"){
+        $inMonth = "sep";
+      }
+      elseif ($_POST["month"]=="ตุลาคม"){
+        $inMonth = "oct";
+      }
+      elseif ($_POST["month"]=="พฤศจิกายน"){
+        $inMonth = "nov";
+      }
+      elseif ($_POST["month"]=="ธันวาคม"){
+        $inMonth = "dec";
+      }
+      else{
+        $inMonth = strtolower(substr($_POST["month"],0,3));
+        $language = "en";
+      }
       $sum = 0;
       foreach ($month as $key => $value) {
         if($key == $inMonth){break;}
@@ -35,7 +77,7 @@
         }
         echo $_POST["month"]." ".date("Y");
         echo "<table border=\"1\"><tr>";
-        foreach ($week as $weekday) {
+        foreach ($week[$language] as $weekday) {
           echo "<td align=\"center\" width=\"80\">".$weekday."</td>";
         }
         echo "</tr><tr>";
